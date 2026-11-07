@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#101a1c" />
+  <title>Reinos de Éter — Ajedrez RPG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Reinos de Éter inicio"><span class="brand-mark">✦</span><span>REINOS <i>DE ÉTER</i></span></a>
+      <div class="top-actions"><span class="save-status"><span class="live-dot"></span> PARTIDA GUARDADA</span><button class="icon-button" id="soundToggle" aria-label="Alternar sonido" title="Sonido">♫</button><button class="icon-button" id="resetGame" aria-label="Reiniciar partida" title="Nueva partida">↻</button></div>
+    </header>
+    <main>
+      <section class="intro"><div><div class="eyebrow">AJEDREZ · ESTRATEGIA · COMBATE</div><h1>La guerra de los <em>reinos</em></h1><p>Conquista el tablero. Cada captura desata un duelo de esencia.</p></div><div class="turn-pill" id="turnPill"><span class="turn-orb"></span><span id="turnText">TU TURNO</span><b id="moveCount">MOV. 01</b></div></section>
+      <section class="game-layout">
+        <div class="board-column">
+          <div class="players-row">
+            <div class="player-card enemy-card"><div class="avatar enemy-avatar">♚</div><div class="player-info"><span class="player-label">RIVAL · IA</span><strong>La Sombra</strong><small id="enemyArmy">16 piezas en combate</small></div><div class="crown">♛</div></div>
+            <div class="board-tools"><button id="undoMove" class="text-button" title="Deshacer último movimiento">↶ <span>Deshacer</span></button><button id="flipBoard" class="text-button" title="Girar tablero">⟳ <span>Girar</span></button></div>
+          </div>
+          <div class="board-frame"><div class="rank-labels" id="rankLabels"></div><div class="chessboard" id="board" role="grid" aria-label="Tablero de ajedrez"></div><div class="file-labels" id="fileLabels"></div></div>
+          <div class="players-row bottom-player"><div class="player-card"><div class="avatar player-avatar">♔</div><div class="player-info"><span class="player-label">TU EJÉRCITO</span><strong>Guardia del Alba</strong><small id="playerArmy">16 piezas en combate</small></div><div class="player-level" id="armyLevel">NV. 1</div></div><div class="turn-hint" id="turnHint">Selecciona una pieza para moverla</div></div>
+        </div>
+        <aside class="side-panel">
+          <div class="panel-tabs"><button class="tab active" data-tab="army">EJÉRCITO <span id="armyTabCount">16</span></button><button class="tab" data-tab="shop">BAZAR <span>✦ <b id="goldCount">120</b></span></button></div>
+          <div class="panel-content" id="armyPanel"><div class="section-heading"><div><div class="eyebrow">TUS CAMPEONES</div><h2>Formación</h2></div><span class="mini-tag" id="unitCount">16 / 16</span></div><p class="panel-note">Elige una pieza para ver sus estadísticas y usar objetos.</p><div class="unit-list" id="unitList"></div><div class="unit-detail" id="unitDetail"></div></div>
+          <div class="panel-content hidden" id="shopPanel"><div class="section-heading"><div><div class="eyebrow">SUMINISTROS DEL REINO</div><h2>El bazar</h2></div><div class="gold-badge">✦ <b id="shopGold">120</b></div></div><p class="panel-note">Gana duelos para conseguir oro. Los objetos son de un solo uso.</p><div class="shop-list" id="shopList"></div><div class="shop-tip">✧ <span>Consejo del mercader: guarda un Revivir para tu reina.</span></div></div>
+          <div class="battle-log"><div class="log-title"><span>CRÓNICA DE BATALLA</span><button id="clearLog" aria-label="Limpiar crónica">⌫</button></div><div id="logEntries" class="log-entries"></div></div>
+        </aside>
+      </section>
+      <footer><span>REINOS DE ÉTER <i>·</i> UNA PARTIDA ENTRE LUZ Y SOMBRA</span><span>Las piezas ganan experiencia al sobrevivir a un duelo.</span></footer>
+    </main>
+  </div>
+  <div class="modal-backdrop hidden" id="battleModal" role="dialog" aria-modal="true" aria-labelledby="battleTitle">
+    <div class="battle-dialog"><div class="battle-topline"><span class="eyebrow">⚔ DUELO DE ESENCIAS</span><span class="battle-turn" id="battleTurn">TU ACCIÓN</span></div><h2 id="battleTitle">¡Un duelo comienza!</h2><p class="battle-subtitle" id="battleSubtitle">La captura decide el destino.</p>
+      <div class="combatants"><div class="combatant" id="attackerCard"><div class="combat-piece" id="attackerGlyph">♙</div><div class="combat-name" id="attackerName">Peón</div><div class="combat-meta" id="attackerMeta">Nv. 1 · Guardia del Alba</div><div class="health-track"><div class="health-fill" id="attackerHpBar"></div></div><div class="health-text" id="attackerHpText">20 / 20 PV</div><div class="mana-track"><div class="mana-fill" id="attackerMpBar"></div></div><div class="mana-text" id="attackerMpText">10 / 10 ÉTER</div></div><div class="versus">VS</div><div class="combatant enemy-combatant" id="defenderCard"><div class="combat-piece" id="defenderGlyph">♟</div><div class="combat-name" id="defenderName">Peón</div><div class="combat-meta" id="defenderMeta">Nv. 1 · La Sombra</div><div class="health-track"><div class="health-fill enemy-health" id="defenderHpBar"></div></div><div class="health-text" id="defenderHpText">20 / 20 PV</div><div class="mana-track"><div class="mana-fill enemy-mana" id="defenderMpBar"></div></div><div class="mana-text" id="defenderMpText">10 / 10 ÉTER</div></div></div>
+      <div class="battle-message" id="battleMessage">¡Elige tu acción!</div><div class="battle-actions" id="battleActions"></div><div class="battle-result hidden" id="battleResult"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="game-core.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
