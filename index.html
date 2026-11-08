@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#101813" />
+  <title>Marisma — Temporada de caza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Marisma inicio"><span class="brand-mark">M<span>✳</span></span><span>MARISMA<small>FIELD CLUB · 04</small></span></a>
+      <div class="top-meta"><span class="live-dot"></span> SESIÓN EN CURSO <i></i> <span id="clock">06:42 AM</span></div>
+      <div class="top-actions"><div class="wallet"><span class="coin">◆</span><strong id="credits">1,250</strong><small>CR</small></div><button class="icon-btn" id="soundButton" aria-label="Sonido activado">◖</button><button class="icon-btn menu-btn" id="pauseButton" aria-label="Pausa">Ⅱ</button></div>
+    </header>
+
+    <section class="game-layout">
+      <aside class="side-panel left-panel">
+        <div class="eyebrow">ZONA DE CAZA <span>01 / 03</span></div>
+        <h1>La <em>marisma</em></h1>
+        <p class="location">DELTA DEL EBRO, ESPAÑA <span>·</span> 18°C</p>
+        <div class="weather"><span class="weather-icon">☀</span><span>DESPEJADO<small>VIENTO 4 KM/H · NE</small></span><div class="wind-lines"><i></i><i></i><i></i></div></div>
+        <div class="section-rule"></div>
+        <div class="mission-head"><span class="eyebrow">OBJETIVO DE HOY</span><span class="mission-icon">◎</span></div>
+        <div class="mission-title">Vuelo de mañana</div>
+        <p class="mission-copy">Abate <strong>5 patos</strong> para completar la salida.</p>
+        <div class="progress-row"><span id="missionProgress">0 / 5</span><span>+350 CR</span></div>
+        <div class="progress-track"><i id="missionBar"></i></div>
+        <div class="section-rule"></div>
+        <div class="stats-title eyebrow">REGISTRO DE SALIDA</div>
+        <div class="stat-row"><span>Precisión</span><strong id="accuracy">—<small>%</small></strong></div>
+        <div class="stat-row"><span>En la jornada</span><strong id="ducksDown">0</strong></div>
+        <div class="stat-row"><span>Racha máxima</span><strong id="bestStreak">0<span class="streak-star">✦</span></strong></div>
+        <button class="small-link" id="resetButton">↻ &nbsp; NUEVA JORNADA</button>
+      </aside>
+
+      <section class="range-wrap" aria-label="Campo de tiro">
+        <div class="range-frame">
+          <canvas id="gameCanvas" aria-label="Campo de tiro de patos"></canvas>
+          <div class="scene-top"><div class="scene-location"><span class="target-dot"></span> PUESTO DE OBSERVACIÓN <span class="scene-divider">/</span> HUMEDAL 03</div><div class="scene-weather">☀ &nbsp; 18° <span>│</span> VISIBILIDAD ALTA</div></div>
+          <div class="scene-alert" id="sceneAlert"><span>✦</span><span id="alertText">BUEN DISPARO</span></div>
+          <div class="wave-label"><span class="wave-number" id="waveNumber">01</span><span>VUELO<br><b>DE MAÑANA</b></span></div>
+          <div class="distance"><span>●</span> <b id="distanceReadout">42</b> <small>M</small></div>
+          <div class="aim-reticle" id="reticle"><i></i><i></i><i></i><i></i><b></b></div>
+          <div class="shot-flash" id="shotFlash"></div>
+          <div class="round-result" id="roundResult"><span class="result-kicker">SALIDA COMPLETADA</span><strong id="resultTitle">Buen trabajo.</strong><p id="resultCopy">Has cumplido el objetivo de hoy.</p><button id="continueButton">SEGUIR CAZANDO <span>→</span></button></div>
+          <div class="scene-bottom"><span>MARISMA FIELD CLUB <i>®</i></span><span>SIMULACIÓN DEPORTIVA <b>·</b> RESPETA LA NATURALEZA</span></div>
+        </div>
+        <div class="controls-hint"><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span><span>MOVERSE</span><span class="hint-separator"></span><span class="keycap mouse-key">⌖</span><span>APUNTAR</span><span class="hint-separator"></span><span class="keycap">␣</span><span>DISPARAR</span><span class="hint-tail">Mantén la calma. Espera el momento.</span></div>
+        <div class="mobile-tip">DESLIZA PARA APUNTAR <span>·</span> TOCA DISPARAR</div>
+      </section>
+
+      <aside class="side-panel right-panel">
+        <div class="eyebrow weapon-label">EQUIPO ACTIVO <span class="weapon-status"><i></i> LISTO</span></div>
+        <div class="weapon-name" id="weaponName">FIELD<span> / </span>12</div>
+        <div class="weapon-type" id="weaponType">ESCOPETA SEMIAUTOMÁTICA</div>
+        <div class="weapon-visual" id="weaponVisual" aria-hidden="true"><div class="gun-art"><i class="gun-barrel"></i><i class="gun-upper"></i><i class="gun-stock"></i><i class="gun-grip"></i><i class="gun-trigger"></i><i class="gun-mag"></i><i class="gun-sight"></i><i class="gun-detail"></i></div><span class="weapon-sheen"></span><span class="weapon-caption">MFC <b>12G</b></span></div>
+        <div class="weapon-stats"><div><span>ALCANCE</span><div class="meter"><i style="width:64%"></i></div></div><div><span>CADENCIA</span><div class="meter"><i style="width:79%"></i></div></div><div><span>PRECISIÓN</span><div class="meter"><i style="width:72%"></i></div></div></div>
+        <div class="ammo-block"><div class="ammo-title"><span>CARGADOR</span><small id="ammoLabel">12 GA · CARGA DEPORTIVA</small></div><div class="ammo-count"><strong id="ammoCount">6</strong><span>/ 6</span><button id="reloadButton" aria-label="Recargar">↻</button></div><div class="ammo-track" id="ammoTrack"></div></div>
+        <button class="shop-button" id="shopButton"><span class="shop-icon">▤</span><span>TIENDA DE ARMAS<small>PERSONALIZA TU EQUIPO</small></span><span class="shop-arrow">↗</span></button>
+        <div class="tip-card"><span class="tip-icon">✳</span><span><b>CONSEJO DE CAMPO</b><small>Anticipa el vuelo: apunta un poco por delante del pato.</small></span></div>
+      </aside>
+    </section>
+    <footer class="footer"><span>© 2025 MARISMA FIELD CLUB</span><span>UN JUEGO DE PUNTERÍA · JUEGA CON RESPONSABILIDAD</span><button id="helpButton">CONTROLES &nbsp; ?</button></footer>
+  </main>
+
+  <div class="modal-backdrop" id="shopModal" aria-hidden="true"><section class="modal shop-modal"><button class="modal-close" data-close>×</button><div class="eyebrow">EQUIPAMIENTO DE CAMPO <span>ARMERÍA</span></div><h2>Elige tu <em>equipo.</em></h2><p class="modal-subtitle">Cada arma tiene su propio ritmo. Encuentra la que mejor se adapta a tu estilo.</p><div class="weapon-grid" id="weaponGrid"></div><div class="modal-footnote">ARMAS DEPORTIVAS FICTICIAS · SOLO PARA SIMULACIÓN</div></section></div>
+  <div class="modal-backdrop" id="helpModal" aria-hidden="true"><section class="modal help-modal"><button class="modal-close" data-close>×</button><div class="eyebrow">GUÍA DE CAMPO <span>CONTROLES</span></div><h2>Todo listo para <em>salir.</em></h2><div class="help-grid"><div><b>⌖ &nbsp; Apuntar</b><p>Mueve el ratón o desliza un dedo por el campo.</p></div><div><b>◎ &nbsp; Disparar</b><p>Clic, barra espaciadora o botón de disparo táctil.</p></div><div><b>↗ &nbsp; Moverse</b><p>Usa WASD, las flechas o el pad direccional.</p></div><div><b>↻ &nbsp; Recargar</b><p>Pulsa R o el botón de recarga. ¡Cuenta los cartuchos!</p></div></div><button class="primary-button" data-close>ENTENDIDO <span>→</span></button></section></div>
+  <div class="mobile-controls"><div class="move-pad" id="movePad" aria-label="Moverse"><span class="pad-arrow pad-up">⌃</span><span class="pad-arrow pad-left">‹</span><span class="pad-center">＋</span><span class="pad-arrow pad-right">›</span><span class="pad-arrow pad-down">⌄</span></div><div class="mobile-actions"><button class="reload-touch" id="reloadTouch">↻</button><button class="fire-touch" id="fireTouch"><span>◎</span><small>FUEGO</small></button></div></div>
+  <script src="game.js"></script>
+</body>
+</html>
